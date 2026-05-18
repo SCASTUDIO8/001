@@ -96,8 +96,8 @@ async function create(req, res, next) {
       if (coupon.type === 'fixed') {
         discountAmount = Math.min(parseFloat(coupon.value), totalAmount);
       } else {
-        discountAmount = totalAmount * (1 - parseFloat(coupon.value) / 100);
-        discountAmount = parseFloat(discountAmount.toFixed(2));
+        // value is percentage off (e.g. 20 = 20% discount)
+        discountAmount = parseFloat((totalAmount * parseFloat(coupon.value) / 100).toFixed(2));
       }
 
       coupon.used_count += 1;
